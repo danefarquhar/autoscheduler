@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <title>Screen 3</title>
+  <style>
+    body {
+      margin-top: 18%;
+      font-family: sans-serif;
+    }
+
+    .back-button {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+
+    .back-button a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #000;
+      border-color: #000;
+      color: #fff;
+      border: #000 2px solid;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .task-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .task-name {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    .task-time {
+      flex: 1;
+      text-align: right;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">Scheduled Tasks</h1>
+<div>
+  <p id="idPrint"></p>
+</div>
+    <div class="task-list">
+      <!-- Scheduled tasks will be dynamically generated here -->
+    </div>
+
+    <div class="back-button">
+      <a href="screen2.html">Back to Tasklist</a>
+    </div>
+  </div>
+
+  <script src="screen3.js"></script>
+</body>
+
+</html>

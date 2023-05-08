@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <title>Screen 2</title>
+  <style>
+    body {
+      margin-top: 18%;
+      font-family: sans-serif;
+    }
+
+    .back-button{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    } 
+
+    .clear-button {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .autoschedule-button{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .back-button a,
+    .clear-button button,
+    .autoschedule-button button {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #000;
+      border-color: #000;
+      color: #fff;
+      border: #000 2px solid;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button a:hover,
+    .clear-button button:hover,
+    .autoschedule-button button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .clear-button button:focus,
+    .clear-button button:active,
+    .clear-button button:disabled {
+      background-color: #000 !important;
+      border-color: #000 !important;
+      color: #fff !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    .autoschedule-button button:focus,
+    .autoschedule-button button:active,
+    .autoschedule-button button:disabled {
+      background-color: #000 !important;
+      border-color: #000 !important;
+      color: #fff !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    .tasks {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="autoschedule-button">
+      <button onclick="handleAutoSchedule()">AutoSchedule</button>
+    </div>
+  
+
+
+
+    <h1 class="text-center">Tasks</h1>
+
+    
+
+    <div class="tasks">
+      <!-- Task list will be dynamically generated here -->
+    </div>
+
+    <div class="back-button">
+        <a href="index.html">Add Another Task</a>
+      </div>
+
+      <div class="clear-button">
+        <button onclick="clearTasks()">Clear TaskList</button>
+      </div>
+
+  </div>
+
+  <script src="screen2.js"></script>
+</body>
+
+</html>

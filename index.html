@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <title>Priority AutoScheduler</title>
+  <style>
+    body {
+      margin-top: 18%;
+      font-family: sans-serif;
+    }
+
+    .btn {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+  border: #000 2px solid !important;
+    }
+
+.btn.inverse {
+    background-color: #fff !important;
+  border-color: #fff !important;
+  color: #000 !important;
+  border: #000 2px solid  !important;
+    }
+    .btn:disabled {
+    opacity: 1;
+    outline: none !important;
+}
+
+.content {
+  /* Your existing styles for the content container */
+  text-align: center;
+}
+
+.image-container {
+  margin-top: 40px;
+}
+
+.image-container img {
+  display: block;
+  margin: 0 auto;
+  max-width: 80%;
+  max-height: 80vh;
+}
+
+
+
+    .circle {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      text-align: center;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .cicle span {
+        font-weight: bold;
+    }
+    .circle.selected {
+      background-color: #000;
+      color: #fff;
+    }
+    .circle.selected span {
+      font-weight: bold;
+    }
+    .center-button {
+      display: flex;
+      justify-content: center;
+    }
+    .center-content {
+      text-align: center;
+    }
+    .form-control:focus {
+  outline-color: #000;
+  border-color: #000;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+}
+
+    .custom-range::-webkit-slider-thumb {
+  background: rgb(0, 0, 0);
+}
+
+.custom-range::-moz-range-thumb {
+  background: rgb(0, 0, 0);
+}
+
+.custom-range::-ms-thumb {
+  background: rgb(0, 0, 0);
+}
+
+.custom-range::-webkit-slider-thumb:active {
+    background-color: rgb(0, 0, 0);
+}
+.custom-range::-webkit-slider-thumb,
+.custom-range:focus::-webkit-slider-thumb, 
+.custom-range:focus::-moz-range-thumb,
+.custom-range:focus::-ms-thumb {
+    box-shadow: rgb(0, 0, 0);
+    outline: none !important;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Priority AutoScheduler</h1>
+    <div class="form-group center-content">
+      <label for="taskInput">Add a Task</label>
+      <input type="text" class="form-control" id="taskInput">
+    </div>
+    <div class="form-group center-content">
+  <label for="priorityInput">Priority Level</label>
+  <div class="text-center">
+    <div class="circle" onclick="selectPriority(1)"><span>1</span></div>
+    <div class="circle" onclick="selectPriority(2)"><span>2</span></div>
+    <div class="circle" onclick="selectPriority(3)"><span>3</span></div>
+    <div class="circle" onclick="selectPriority(4)"><span>4</span></div>
+    <div class="circle" onclick="selectPriority(5)"><span>5</span></div>
+  </div>
+</div>
+
+<div class="form-group center-content">
+    <label for="timeNeededInput">Time Needed</label>
+    <input type="range" class="form-control-range custom-range" id="timeNeededInput" min="5" max="360" step="5" value="30">
+    <span id="selectedTime">30 minutes</span>
+  </div>
+
+
+    <div class="center-button">
+      <button class="btn mt-3 inverse dark" id="submitButton" onclick="saveData()">Add</button>
+    </div>
+
+
+    <div class="content">
+        <!-- Your existing content here -->
+      
+        <div class="image-container">
+          <img src="img/clockImage.png" alt="Clock Image">
+        </div>
+      </div>
+
+
+
+  </div>
+
+  <script>
+    let task;
+    let priority;
+    let timeNeeded;
+
+    function selectPriority(num) {
+      // Remove the "selected" class from all circles
+      const circles = document.querySelectorAll('.circle');
+      circles.forEach(circle => circle.classList.remove('selected'));
+
+      // Add the "selected" class to the clicked circle
+      const selectedCircle = document.querySelector(`.circle:nth-child(${num})`);
+      selectedCircle.classList.add('selected');
+
+      // Save the selected priority
+      priority = num;
+    }
+
+    function saveData() {
+      task = document.getElementById('taskInput').value;
+
+if (task.trim() === "") {
+  alert("Please enter a task.");
+  return;
+}
+if (!priority) {
+  alert("Please select a priority level.");
+  return;
+}
+if (!timeNeeded) {
+  timeNeeded = 30;
+  
+}
+
+const submitButton = document.getElementById('submitButton');
+submitButton.classList.toggle('normal');
+submitButton.classList.toggle('inverse');
+submitButton.disabled = true;
+console.log('Task:', task);
+console.log('Priority:', priority);
+console.log('Time Needed:', timeNeeded);
+
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+tasks.push({ task, priority, timeNeeded }); // Store the timeNeeded value
+localStorage.setItem('tasks', JSON.stringify(tasks));
+
+window.location.href = 'screen2.html'; // Redirect to screen2.html
+    }
+
+
+    const timeNeededInput = document.getElementById('timeNeededInput');
+const selectedTime = document.getElementById('selectedTime');
+
+timeNeededInput.addEventListener('input', () => {
+  const value = timeNeededInput.value;
+  let formattedTime;
+
+  if (value <= 59) {
+    formattedTime = `${value} minutes`;
+  } else {
+    const hours = Math.floor(value / 60);
+    const minutes = value % 60;
+
+    if ((minutes === 0) && (hours !== 1)) {
+      formattedTime = `${hours} hours`;
+    } else if ((minutes === 0) && (hours == 1)){
+      formattedTime = `${hours} hour`;
+    }else if (hours == 1){
+      formattedTime = `${hours} hour and ${minutes} minutes`;
+    } else {
+      formattedTime = `${hours} hours and ${minutes} minutes`;
+    }
+   
+  }
+
+  selectedTime.textContent = formattedTime;
+  timeNeeded = value;
+});
+
+
+  </script>
+</body>
+</html>
